@@ -1,203 +1,767 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dulidan Studios | Dream. Design. Develop. Dominate.</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root { --brand-purple: #8122b5; --brand-magenta: #da29cf; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Politics AI — Dulidan Studios</title>
+<style>
+/* System font stack — no external requests */
+</style>
+<style>
+:root {
+  --bg: #08090d;
+  --surface: #0f1118;
+  --border: rgba(255,255,255,0.06);
+  --purple: #8122b5;
+  --magenta: #da29cf;
+  --text: #e8e8f0;
+  --muted: #6b6b80;
+  --green: #1db87a;
+}
 
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #000; 
-            color: #fff; 
-            scroll-behavior: smooth; 
-        }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .brand-gradient { 
-            background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-magenta) 100%); 
-        }
+html { scroll-behavior: smooth; }
 
-        .text-gradient { 
-            background: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-magenta) 100%); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-        }
+body {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
 
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            transition: all 0.4s ease; 
-        }
+/* GRID OVERLAY — signature element */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(129,34,181,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129,34,181,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
 
-        .glass-card:hover { 
-            border-color: var(--brand-magenta); 
-            transform: translateY(-5px); 
-            background: rgba(218, 41, 207, 0.03); 
-        }
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8,9,13,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
 
-        [data-lang="de"] { display: none; }
-    </style>
+.nav-logo {
+  font-family: 'Space Mono', 'Courier New', Courier, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-logo span {
+  background: linear-gradient(135deg, var(--purple), var(--magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: 6px;
+  border: 1px solid rgba(218,41,207,0.4);
+  color: var(--magenta);
+  text-decoration: none;
+  transition: all 0.2s;
+  background: rgba(218,41,207,0.05);
+}
+.nav-cta:hover {
+  background: rgba(218,41,207,0.12);
+  border-color: var(--magenta);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px 60px;
+  z-index: 1;
+}
+
+.hero-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(218,41,207,0.12) 0%, rgba(129,34,181,0.06) 40%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.7; transform: translate(-50%,-50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%,-50%) scale(1.08); }
+}
+
+.hero-eyebrow {
+  font-family: 'Space Mono', 'Courier New', Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--magenta);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.2s forwards;
+}
+
+.hero-title {
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.4s forwards;
+}
+
+.hero-title .grad {
+  background: linear-gradient(135deg, var(--purple) 0%, var(--magenta) 60%, #ff6ef7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 520px;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.6s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0;
+  animation: fade-up 0.8s ease 0.8s forwards;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--purple), var(--magenta));
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 30px rgba(218,41,207,0.25);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(218,41,207,0.4);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 14px 32px;
+  background: transparent;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-secondary:hover {
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.03);
+}
+
+/* HERO STATS */
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 72px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+  opacity: 0;
+  animation: fade-up 0.8s ease 1s forwards;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: 'Space Mono', 'Courier New', Courier, monospace;
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--purple), var(--magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes logo-pulse {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(218,41,207,0.25)); }
+  50% { filter: drop-shadow(0 0 28px rgba(218,41,207,0.5)) drop-shadow(0 0 50px rgba(129,34,181,0.3)); }
+}
+
+/* SECTIONS */
+section {
+  position: relative;
+  z-index: 1;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 40px;
+}
+
+.section-label {
+  font-family: 'Space Mono', 'Courier New', Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--magenta);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.section-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 580px;
+}
+
+/* FEATURE CARDS */
+.features {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.feature-card {
+  background: var(--surface);
+  padding: 36px 32px;
+  transition: background 0.3s;
+}
+.feature-card:hover {
+  background: rgba(218,41,207,0.04);
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(129,34,181,0.2), rgba(218,41,207,0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.feature-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.feature-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* GAMEPLAY SECTION */
+.gameplay {
+  padding: 100px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.gameplay-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.gameplay-visual {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  font-family: 'Space Mono', 'Courier New', Courier, monospace;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 2;
+  position: relative;
+  overflow: hidden;
+}
+
+.gameplay-visual::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 20px; right: 20px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--magenta), transparent);
+}
+
+.log-line { display: flex; gap: 12px; }
+.log-round { color: var(--purple); flex-shrink: 0; }
+.log-text { color: var(--text); }
+.log-effect { color: var(--green); margin-left: auto; flex-shrink: 0; }
+.log-warning { color: #ef9f27; }
+.log-crisis { color: #e24b4a; }
+
+.gameplay-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gameplay-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.gameplay-item-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--magenta);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+
+.gameplay-item-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.gameplay-item-text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* FUNDING BADGE */
+.funding {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.funding-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.funding-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(29,184,122,0.08);
+  border: 1px solid rgba(29,184,122,0.2);
+  border-radius: 8px;
+  padding: 10px 18px;
+  flex-shrink: 0;
+}
+
+.funding-badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.funding-badge-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.funding-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.funding-text strong { color: var(--text); }
+
+/* CONTACT */
+.contact-section {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 100px 40px;
+  text-align: center;
+}
+
+.contact-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px;
+  margin-top: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 25%; right: 25%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--magenta), transparent);
+}
+
+.contact-email {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  display: block;
+  margin-bottom: 10px;
+  transition: color 0.2s;
+}
+.contact-email:hover { color: var(--magenta); }
+
+.contact-phone {
+  font-size: 15px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.contact-phone:hover { color: var(--text); }
+
+/* FOOTER */
+footer {
+  padding: 32px 40px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-logo {
+  font-family: 'Space Mono', 'Courier New', Courier, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: rgba(107,107,128,0.5);
+  letter-spacing: 0.05em;
+}
+
+/* REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .section-inner { padding: 70px 20px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .gameplay-split { grid-template-columns: 1fr; gap: 40px; }
+  .gameplay { padding: 70px 20px; }
+  .funding-inner { flex-direction: column; gap: 20px; padding: 48px 20px; }
+  .contact-section { padding: 70px 20px; }
+  .contact-card { padding: 32px 24px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px 20px; }
+  .hero-stats { gap: 28px; }
+}
+</style>
 </head>
-<body class="antialiased overflow-x-hidden">
+<body>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center bg-black/80 backdrop-blur-lg border-b border-white/5">
-        <img src="images/biglogo.png" alt="Dulidan Studios Logo" class="h-10">
-        <div class="flex items-center space-x-8">
-            <div class="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400">
-                <a href="#services" class="hover:text-white transition" data-en="Services" data-de="Leistungen">Services</a>
-                <a href="#workflow" class="hover:text-white transition" data-en="Workflow" data-de="Ablauf">Workflow</a>
-                <a href="#games" class="hover:text-white transition" data-en="Games" data-de="Spiele">Games</a>
-            </div>
-            <button onclick="toggleLang()" class="border border-white/20 px-3 py-1 rounded text-[10px] font-black uppercase hover:bg-white/10 transition">
-                <span id="lang-btn">DE</span>
-            </button>
-        </div>
-    </nav>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="images/biglogo.png" alt="Dulidan Studios" style="height:36px;" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+    <span style="display:none;">DULIDAN<span style="background:linear-gradient(135deg,#8122b5,#da29cf);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">.</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#gameplay">Gameplay</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Kontakt</a>
+</nav>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] brand-gradient blur-[160px] opacity-20 rounded-full z-0"></div>
-        
-        <img src="images/logo.png" alt="Dulidan Studios Logo" class="w-full max-w-2xl mb-12 relative z-10 drop-shadow-2xl">
-        
-        <h1 class="text-3xl md:text-6xl font-extrabold text-center max-w-5xl leading-none mb-10 uppercase tracking-tighter relative z-10">
-            <span data-en="Dream. Design." data-de="Träumen. Designen.">Dream. Design.</span><br>
-            <span class="text-gradient" data-en="Develop. Dominate." data-de="Entwickeln. Dominieren.">Develop. Dominate.</span>
-        </h1>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
 
-        <div class="flex flex-col md:flex-row gap-4 relative z-10">
-            <a href="#contact" class="brand-gradient px-12 py-4 rounded-full font-bold uppercase text-[11px] tracking-widest hover:scale-105 transition shadow-lg shadow-purple-500/20">
-                <span data-en="Commissions Opening Soon" data-de="Aufträge bald verfügbar">Commissions Opening Soon</span>
-            </a>
-        </div>
-    </section>
-    
-    
-    <!-- About Us -->
-<section id="about-us" class="py-32 px-6 bg-black/70">
-    <div class="max-w-5xl mx-auto text-center">
-        <h2 class="text-gradient font-black uppercase tracking-[0.4em] text-xs mb-4" data-en="About Us" data-de="Über uns">About Us</h2>
-        <h3 class="text-4xl font-extrabold uppercase tracking-tighter mb-8" data-en="Who We Are" data-de="Wer wir sind">Who We Are</h3>
-        <p class="text-gray-400 text-lg leading-relaxed mb-6" data-en="Dulidan Studios is a creative powerhouse dedicated to turning visions into reality. From game development to ad production, we bring ideas to life with passion, precision, and bold creativity." data-de="Dulidan Studios ist ein kreatives Studio, das Visionen in Realität umsetzt. Von der Spieleentwicklung bis zur Werbeproduktion setzen wir Ideen mit Leidenschaft, Präzision und mutiger Kreativität um.">Dulidan Studios is a creative powerhouse dedicated to turning visions into reality. From game development to ad production, we bring ideas to life with passion, precision, and bold creativity.</p>
-        <p class="text-gray-400 text-lg leading-relaxed mb-4" data-en="Our mission is to design experiences that resonate, engage, and inspire. We believe in collaboration, innovation, and the power of dreaming big." data-de="Unsere Mission ist es, Erlebnisse zu gestalten, die begeistern, inspirieren und verbinden. Wir glauben an Zusammenarbeit, Innovation und die Kraft, groß zu träumen.">Our mission is to design experiences that resonate, engage, and inspire. We believe in collaboration, innovation, and the power of dreaming big.</p>
-        <p class="text-gray-400 text-lg leading-relaxed" data-en="All our work is 100% human creativity – we never use AI to generate results. Your projects are crafted with passion and expertise." data-de="All unsere Arbeit basiert zu 100% auf menschlicher Kreativität – wir verwenden keine KI. Eure Projekte werden mit Leidenschaft und Expertise umgesetzt.">All our work is 100% human creativity – we never use AI to generate results. Your projects are crafted with passion and expertise.</p>
+  <div style="margin-bottom:32px;opacity:0;animation:fade-up 0.8s ease 0.1s forwards;">
+    <img src="images/logo.png" alt="Politics AI" style="max-width:320px;width:80vw;filter:drop-shadow(0 0 30px rgba(218,41,207,0.35));animation:logo-pulse 5s ease-in-out infinite;" onerror="this.style.display='none'">
+  </div>
+
+  <p class="hero-eyebrow">Dulidan Studios — Öhringen</p>
+
+  <h1 class="hero-title">
+    Politics<br><span class="grad">AI</span>
+  </h1>
+
+  <p class="hero-sub">
+    Der erste KI-basierte Geopolitik-Simulator. Du spielst Deutschland — und entscheidest über Krieg, Frieden, Wirtschaft und Bündnisse in einer sich verändernden Welt.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#features" class="btn-primary">Features entdecken</a>
+    <a href="#contact" class="btn-secondary">Playtester werden</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-number">70+</div>
+      <div class="stat-label">Länder</div>
     </div>
+    <div class="stat-item">
+      <div class="stat-number">8</div>
+      <div class="stat-label">Aktive Konflikte</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Szenarien</div>
+    </div>
+  </div>
 </section>
 
-    
-    
-    <!-- Workflow / Steps -->
-    <section id="workflow" class="py-32 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-20">
-            <h2 class="text-gradient font-black uppercase tracking-[0.4em] text-xs mb-4" data-en="Working with us" data-de="Zusammenarbeit">Working with us</h2>
-            <h3 class="text-4xl font-bold uppercase" data-en="Ad Production Steps" data-de="Ablauf der Werbeproduktion">Ad Production Steps</h3>
-        </div>
-        
-        <div class="grid md:grid-cols-4 gap-4">
-            <div class="glass-card p-8 rounded-xl text-center">
-                <div class="text-2xl font-black mb-4">01</div>
-                <h4 class="font-bold mb-4 uppercase text-sm" data-en="Talk to Us" data-de="Erstgespräch">Talk to Us</h4>
-                <p class="text-gray-500 text-xs leading-relaxed" data-en="Direct consultation to define your vision and goals." data-de="Direkte Beratung, um Ihre Vision und Ziele zu definieren.">Direct consultation to define your vision and goals.</p>
-            </div>
-            <div class="glass-card p-8 rounded-xl text-center border-purple-500/30">
-                <div class="text-2xl font-black mb-4">02</div>
-                <h4 class="font-bold mb-4 uppercase text-sm" data-en="Fixed Costs" data-de="Fixkosten">Fixed Costs</h4>
-                <p class="text-gray-500 text-xs leading-relaxed" data-en="Pay the estimated fixed costs to start the production engine." data-de="Zahlung der geschätzten Fixkosten, um die Produktion zu starten.">Pay the estimated fixed costs to start the production engine.</p>
-            </div>
-            <div class="glass-card p-8 rounded-xl text-center">
-                <div class="text-2xl font-black mb-4">03</div>
-                <h4 class="font-bold mb-4 uppercase text-sm" data-en="Unlimited Revisions" data-de="Gratis Änderungen">Unlimited Revisions</h4>
-                <p class="text-gray-500 text-xs leading-relaxed" data-en="Not happy? We change it until it fits—no extra fees." data-de="Nicht zufrieden? Wir ändern es, bis es passt – ohne Aufpreis.">Not happy? We change it until it fits—no extra fees.</p>
-            </div>
-            <div class="glass-card p-8 rounded-xl text-center">
-                <div class="text-2xl font-black mb-4">04</div>
-                <h4 class="font-bold mb-4 uppercase text-sm" data-en="Final Provision" data-de="Provision">Final Provision</h4>
-                <p class="text-gray-500 text-xs leading-relaxed" data-en="Final commission estimated and settled after completion." data-de="Abschließende Provision wird nach Fertigstellung berechnet.">Final commission estimated and settled after completion.</p>
-            </div>
-        </div>
-    </section>
-
-<!-- Why Choose Us -->
-<section id="why-us" class="py-32 px-6 max-w-7xl mx-auto">
-    <div class="text-center mb-20">
-        <h2 class="text-gradient font-black uppercase tracking-[0.4em] text-xs mb-4" data-en="Why Choose Us" data-de="Warum wir">Why Choose Us</h2>
-        <h3 class="text-4xl font-bold uppercase" data-en="Our Edge" data-de="Unsere Vorteile">Our Edge</h3>
+<!-- FUNDING -->
+<div class="funding reveal">
+  <div class="funding-inner">
+    <div class="funding-badge">
+      <div class="funding-badge-dot"></div>
+      <span class="funding-badge-text">Staatlich gefördert</span>
     </div>
+    <p class="funding-text">
+      Politics AI wird durch <strong>MFG Baden-Württemberg / Games BW</strong> gefördert —
+      als eines der ersten KI-gestützten Serious-Game-Projekte aus Baden-Württemberg.
+    </p>
+  </div>
+</div>
 
-    <div class="flex flex-wrap justify-center gap-8">
-        <div class="glass-card p-8 rounded-xl text-center w-full max-w-md hover:scale-105 transition">
-            <h4 class="font-bold mb-2 uppercase text-sm" data-en="Fast & Efficient" data-de="Schnell & Effizient">Fast & Efficient</h4>
-            <p class="text-gray-400 text-xs" data-en="We deliver high-quality work on time, every time." data-de="Wir liefern hochwertige Arbeit pünktlich und zuverlässig.">We deliver high-quality work on time, every time.</p>
-        </div>
+<!-- FEATURES -->
+<section id="features" class="features">
+  <div class="section-inner">
+    <p class="section-label reveal">Was dich erwartet</p>
+    <h2 class="section-title reveal">Echte Diplomatie.<br>Echte Konsequenzen.</h2>
+    <p class="section-body reveal">Keine vorgefertigten Entscheidungen. Du schreibst frei — die KI verarbeitet es und die Welt reagiert realistisch.</p>
 
-        <div class="glass-card p-8 rounded-xl text-center w-full max-w-md hover:scale-105 transition">
-            <h4 class="font-bold mb-2 uppercase text-sm" data-en="Creative Design" data-de="Kreatives Design">Creative Design</h4>
-            <p class="text-gray-400 text-xs" data-en="Our visuals are unique, bold, and memorable." data-de="Unsere Designs sind einzigartig, mutig und einprägsam.">Our visuals are unique, bold, and memorable.</p>
-        </div>
-
-        <div class="glass-card p-8 rounded-xl text-center w-full max-w-md hover:scale-105 transition">
-            <h4 class="font-bold mb-2 uppercase text-sm" data-en="Collaborative Process" data-de="Zusammenarbeit">Collaborative Process</h4>
-            <p class="text-gray-400 text-xs" data-en="We work closely with clients to bring their vision to life." data-de="Wir arbeiten eng mit unseren Kunden zusammen, um ihre Vision umzusetzen.">We work closely with clients to bring their vision to life.</p>
-        </div>
-
-        <div class="glass-card p-8 rounded-xl text-center w-full max-w-md hover:scale-105 transition">
-            <h4 class="font-bold mb-2 uppercase text-sm" data-en="100% Human Creativity" data-de="100% Menschliche Kreativität">100% Human Creativity</h4>
-            <p class="text-gray-400 text-xs" data-en="We never use AI – every project is crafted entirely by our team of talented humans." data-de="Wir verwenden keine KI – jedes Projekt wird vollständig von unserem talentierten Team umgesetzt.">We never use AI – every project is crafted entirely by our team of talented humans.</p>
-        </div>
+    <div class="features-grid reveal">
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-title">KI-gesteuerte Länder</div>
+        <div class="feature-desc">Über 70 Länder mit eigenen Agenden, roten Linien und Wirtschaftsdaten — alle reagieren realistisch auf deine Entscheidungen.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <div class="feature-title">Multilaterale Gruppen</div>
+        <div class="feature-desc">Gründe Koalitionen, führe Friedenskonferenzen, starte Abstimmungen. Länder streiten miteinander — auch ohne deinen Input.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Realistische Stats</div>
+        <div class="feature-desc">Wirtschaft, Militär, Diplomatie und Bevölkerungszufriedenheit — alle Werte hängen zusammen und kaskadieren realistisch.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Aktive Weltkonflikte</div>
+        <div class="feature-desc">Ukraine, Gaza, Taiwan, Iran — 8 laufende Konflikte die du beeinflussen kannst. Oder ignorierst. Beides hat Folgen.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Freie Texteingabe</div>
+        <div class="feature-desc">Kein Klicken durch Menüs. Du schreibst direkt an Länder — auf Deutsch, auf Englisch, diplomatisch oder konfrontativ.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏛️</div>
+        <div class="feature-title">Bestehende Orgs</div>
+        <div class="feature-desc">NATO, EU, G7, BRICS — alle als aktive Gruppen spielbar. Nutze deinen Einfluss oder verliere ihn an andere Mächte.</div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- Games Showcase -->
-<section id="games" class="py-32 px-6 bg-zinc-950/50">
-    <div class="text-center mb-16">
-        <h2 class="text-gradient font-black uppercase tracking-widest text-xs mb-2" data-en="Internal Projects" data-de="Interne Projekte">Internal Projects</h2>
-        <h3 class="text-4xl font-extrabold uppercase tracking-tighter" data-en="In Development" data-de="In Entwicklung">In Development</h3>
-    </div>
+<!-- GAMEPLAY -->
+<section id="gameplay">
+  <div class="gameplay">
+    <p class="section-label reveal">Wie es sich anfühlt</p>
+    <h2 class="section-title reveal">Jede Entscheidung zählt.</h2>
 
-    <div class="flex flex-wrap justify-center gap-12">
-        <!-- The Tower -->
-        <div class="group glass-card p-8 rounded-3xl relative overflow-hidden text-center w-full max-w-md">
-            <div class="absolute inset-0 brand-gradient opacity-20 rounded-3xl -z-10"></div>
-            <h4 class="text-2xl font-bold uppercase mb-2">The Tower</h4>
-            <p class="text-gray-400 text-sm italic" data-en="A challenging tower defense game with strategic gameplay." data-de="Ein herausforderndes Tower-Defense-Spiel mit strategischem Gameplay.">A challenging tower defense game with strategic gameplay.</p>
-        </div>
+    <div class="gameplay-split">
+      <div class="gameplay-visual reveal">
+        <div class="log-line"><span class="log-round">R3</span><span class="log-text">🇺🇦 Ukraine: "Wir brauchen Taurus-Lieferungen — sofort."</span></div>
+        <div class="log-line"><span class="log-round">R3</span><span class="log-text">🇷🇺 Russland ↳ antwortet auf Ukraine: "Jede deutsche Waffenlieferung ist eine Kriegserklärung."</span></div>
+        <div class="log-line"><span class="log-round">R3</span><span class="log-text" style="color:#8b8b9a;font-style:italic;">— Russland verlässt empört den Raum</span></div>
+        <div class="log-line" style="margin-top:8px;"><span class="log-round">R3</span><span class="log-text">🇩🇪 Deutschland: "Wir liefern 50 Taurus — und fordern Waffenstillstandsgespräche."</span></div>
+        <div class="log-line"><span class="log-round" style="color:var(--green);">→</span><span class="log-text log-effect">Militär +8 · Ukraine +12</span></div>
+        <div class="log-line"><span class="log-round" style="color:#e24b4a;">→</span><span class="log-text log-crisis">Russland −15 · Spannung +6</span></div>
+        <div class="log-line" style="margin-top:8px;"><span class="log-round log-warning">⚠</span><span class="log-text log-warning">ULTIMATUM von 🇷🇺 Russland: "Stopp der Lieferungen oder wir schließen Nord Stream 3."</span></div>
+      </div>
 
-        <!-- Politics AI -->
-        <div class="group glass-card p-8 rounded-3xl relative overflow-hidden text-center w-full max-w-md">
-            <div class="absolute inset-0 brand-gradient opacity-20 rounded-3xl -z-10"></div>
-            <h4 class="text-2xl font-bold uppercase mb-2">Politics AI</h4>
-            <p class="text-gray-400 text-sm italic" data-en="Simulate political decisions with highly intelligent AI." data-de="Simuliere politische Entscheidungen mit intelligenter KI.">Simulate political decisions with highly intelligent AI.</p>
-        </div>
+      <ul class="gameplay-list reveal">
+        <li class="gameplay-item">
+          <div class="gameplay-item-dot"></div>
+          <div class="gameplay-item-text"><strong>Schreib frei.</strong> Kein Klickmenü — du formulierst deine Diplomatie selbst, auf Deutsch oder Englisch.</div>
+        </li>
+        <li class="gameplay-item">
+          <div class="gameplay-item-dot"></div>
+          <div class="gameplay-item-text"><strong>Die KI antwortet realistisch.</strong> Länder haben Agenden, rote Linien, Emotionen — und eskalieren wenn du sie provozierst.</div>
+        </li>
+        <li class="gameplay-item">
+          <div class="gameplay-item-dot"></div>
+          <div class="gameplay-item-text"><strong>Konsequenzen kaskadieren.</strong> Eine Waffenlieferung stärkt die Ukraine, irritiert Russland, nervt deine Bevölkerung — alles gleichzeitig.</div>
+        </li>
+        <li class="gameplay-item">
+          <div class="gameplay-item-dot"></div>
+          <div class="gameplay-item-text"><strong>Dramatik passiert selten, aber echt.</strong> Ein Austritt aus der NATO-Gruppe, ein Veto, ein Geheimabkommen — wenn es passiert, fühlt es sich verdient an.</div>
+        </li>
+      </ul>
     </div>
+  </div>
 </section>
 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-section">
+    <p class="section-label reveal">Dulidan Studios</p>
+    <h2 class="section-title reveal">Interesse?</h2>
+    <p class="section-body reveal" style="margin:0 auto 0;">Playtester gesucht. Pressekontakt. Oder einfach neugierig — meld dich.</p>
 
+    <div class="contact-card reveal">
+      <a href="mailto:shaquille1106@gmail.com" class="contact-email">shaquille1106@gmail.com</a>
+      <a href="tel:+4915207049499" class="contact-phone">+49 152 07049499</a>
+    </div>
+  </div>
+</section>
 
-    <!-- Contact -->
-    <footer id="contact" class="py-24 px-6 border-t border-white/5 text-center relative">
-        <img src="images/biglogo.png" alt="Dulidan Studios Logo" class="h-12 mx-auto mb-8 opacity-40">
-        <div class="space-y-4 mb-12">
-            <p class="text-2xl font-bold tracking-tight">shaquille1106@gmail.com</p>
-            <p class="text-xl text-gray-400 font-light">+49 15207049499</p>
-        </div>
-        <p class="text-zinc-800 text-[9px] font-bold uppercase tracking-[0.6em]">&copy; 2024 Dulidan Studios. Dream. Design. Develop. Dominate.</p>
-    </footer>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="images/biglogo.png" alt="Dulidan Studios" style="height:28px;opacity:0.4;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span style="display:none;">DULIDAN STUDIOS</span>
+  </div>
+  <div class="footer-copy">© 2025 Dulidan Studios · Öhringen, Deutschland</div>
+</footer>
 
-    <script>
-        let currentLang = 'en';
-        function toggleLang() {
-            currentLang = currentLang === 'en' ? 'de' : 'en';
-            document.getElementById('lang-btn').innerText = currentLang === 'en' ? 'DE' : 'EN';
-            
-            document.querySelectorAll('[data-en]').forEach(el => {
-                el.innerText = el.getAttribute('data-' + currentLang);
-            });
-        }
-    </script>
-
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
